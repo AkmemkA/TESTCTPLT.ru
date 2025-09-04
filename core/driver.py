@@ -1,3 +1,4 @@
+import pyautogui
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import (
@@ -27,5 +28,17 @@ def create_driver(cfg):
         raise ValueError(f"Unsupported browser: {cfg.browser}")  # подстрахуемся
 
     driver.implicitly_wait(cfg.implicit_wait)  # неявное ожидание для всех find()
-    driver.set_window_size(1920, 1080)  # единый размер окна → меньше флейков
+
+    # Получаем размеры экрана
+    screen_width, screen_height = pyautogui.size()
+    # Задаем размер окна (90% от экрана для удобства)
+    window_width = int(screen_width * 0.95)
+    window_height = int(screen_height * 0.95)
+    driver.set_window_size(window_width, window_height)  # единый размер окна → меньше флейков
+
+    # Вычисляем позицию для центрирования
+    position_x = (screen_width - window_width) // 2
+    position_y = (screen_height - window_height) // 2
+    # Устанавливаем позицию окна
+    driver.set_window_position(position_x, position_y)
     return driver  # возвращаем готовый драйвер

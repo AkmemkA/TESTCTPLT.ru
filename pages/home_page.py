@@ -5,9 +5,9 @@ from .base_page import BasePage, Locator  # базовый класс и тип 
 
 class HomePage(BasePage):
     # ↓↓↓ поставь реальные локаторы проекта
-    LOGO: Locator = (By.CSS_SELECTOR, "[data-qa='logo']")  # логотип
-    SEARCH_INPUT: Locator = (By.CSS_SELECTOR, "[data-qa='search']")  # поле поиска
-    SEARCH_BUTTON: Locator = (By.CSS_SELECTOR, "[data-qa='go']")  # кнопка поиска
+    LOGO: Locator = (By.XPATH, '//*[@id="landing-header-logo"]/img')  # логотип
+    SEARCH_INPUT: Locator = (By.ID, "senderCity")  # поле поиска
+    SEARCH_BUTTON: Locator = (By.ID, "calculationFind")  # кнопка поиска
 
     def open_home(self):
         """Открыть главную страницу."""

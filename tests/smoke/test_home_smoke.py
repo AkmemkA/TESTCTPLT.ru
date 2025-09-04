@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 
@@ -11,7 +9,7 @@ from pages.home_page import HomePage
 def test_homepage_opens(driver, config):
     page = HomePage(driver, config.base_url)  # создаём страницу с базовым URL
     page.open_home()  # открываем главную
-    time.sleep(5)
+    # time.sleep(3)
     assert driver.current_url.startswith(
         config.base_url
     ), "Ожидали, что откроется главная страница стенда"
