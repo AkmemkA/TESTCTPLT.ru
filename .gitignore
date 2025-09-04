@@ -1,0 +1,16 @@
+# Виртуальное окружение
+.venv/
+
+# Кэши питона
+__pycache__/
+*.pyc
+
+# IDE - Файлы
+.idea/
+
+# Allure Отчеты
+allure-results/
+allure-report/
+
+# macOS системные файлы
+.DS_Store
