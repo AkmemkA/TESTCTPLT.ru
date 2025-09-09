@@ -11,15 +11,22 @@ class LoginModal(BasePage):
     """
 
     # --- ЛОКАТОРЫ  ---
-    MODAL: Locator = (By.CSS_SELECTOR, "[data-qa='auth-modal']")  # корневой контейнер модалки
-    FIELD_LOGIN: Locator = (By.CSS_SELECTOR, "[data-qa='auth-login']")  # input логина/email
-    FIELD_PASSWORD: Locator = (By.CSS_SELECTOR, "[data-qa='auth-password']")  # input пароля
-    BTN_SUBMIT: Locator = (By.CSS_SELECTOR, "[data-qa='auth-submit']")  # кнопка «Войти»
-    CLOSE_ICON: Locator = (By.CSS_SELECTOR, "[data-qa='auth-close']")  # крестик закрытия (опц.)
+    MODAL: Locator = (
+        By.CSS_SELECTOR,
+        "div[data-popup='login'].popups__item.active",
+    )  # корневой контейнер модалки
+    FIELD_LOGIN: Locator = (By.ID, "pop_up_username")  # input логина/email
+    FIELD_PASSWORD: Locator = (By.ID, "pop_up_password")  # input пароля
+    BTN_SUBMIT: Locator = (By.ID, "pop_up_button")  # кнопка «Войти»
+    CLOSE_ICON: Locator = (By.CSS_SELECTOR, ".popups__close")  # крестик закрытия
+    PASSWORD_TOGGLE: Locator = (By.CSS_SELECTOR, "img[alt='eye']")  # иконка показа/скрытия пароля
 
     # --- ЛК после входа (проверка успешной авторизации) ---
-    # например, заголовок раздела «Отправления»:
-    LK_SHIPMENTS_HEADER: Locator = (By.CSS_SELECTOR, "[data-qa='lk-shipments-title']")
+    # Локатор логина пользователя (универсальный):
+    LK_SHIPMENTS_HEADER: Locator = (
+        By.XPATH,
+        "//*[@id='departures_tab']/div",
+    )  # проверяем что мы в отправлениях
 
     @allure.step("Дождаться открытия модального окна авторизации")
     def wait_opened(self, timeout: float = 10):
@@ -41,7 +48,7 @@ class LoginModal(BasePage):
         self.click(self.BTN_SUBMIT)
         return self
 
-    @allure.step("Проверить, что пользователь попал в ЛК, раздел «Отправления»")
-    def should_be_in_shipments(self, timeout: float = 10):
-        self.find(self.LK_SHIPMENTS_HEADER, timeout)  # ждём заголовок раздела
+    @allure.step("Проверить, что пользователь попал в ЛК, видно название профиля")
+    def should_be_shipments_open(self, timeout: float = 10):
+        self.find(self.LK_SHIPMENTS_HEADER, timeout)  # ждём название аккаунта
         return self

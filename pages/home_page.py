@@ -1,11 +1,11 @@
 import allure
-from selenium.webdriver.common.by import By  # способы поиска
+from selenium.webdriver.common.by import By
 
-from .base_page import BasePage, Locator  # базовый класс и тип локатора
+from .base_page import BasePage, Locator
 
 
 class HomePage(BasePage):
-    # ↓↓↓ поставь реальные локаторы проекта
+    # Локаторы
     LOGO: Locator = (By.XPATH, '//*[@id="landing-header-logo"]/img')  # логотип
     # SEARCH_INPUT: Locator = (By.ID, "senderCity")  # поле поиска To_do
     SEARCH_BUTTON: Locator = (By.ID, "calculationFind")  # кнопка поиска

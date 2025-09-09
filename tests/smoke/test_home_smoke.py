@@ -14,7 +14,7 @@ def test_homepage_opens(driver, config):
         config.base_url
     ), "Ожидали, что откроется главная страница стенда"
 
-    # 4) Добавим скриншот в отчёт — для демо
+    # Добавим скриншот в отчёт
     allure.attach(
         driver.get_screenshot_as_png(),
         name="Главная страница",
