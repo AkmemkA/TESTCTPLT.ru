@@ -13,3 +13,10 @@ def test_homepage_opens(driver, config):
     assert driver.current_url.startswith(
         config.base_url
     ), "Ожидали, что откроется главная страница стенда"
+
+    # 4) Добавим скриншот в отчёт — для демо
+    allure.attach(
+        driver.get_screenshot_as_png(),
+        name="Главная страница",
+        attachment_type=allure.attachment_type.PNG,
+    )

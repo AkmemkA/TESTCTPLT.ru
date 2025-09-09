@@ -14,5 +14,9 @@ class Config:
     implicit_wait: float = float(os.getenv("IMPLICIT_WAIT", "0"))  # неявное ожидание
     explicit_wait: float = float(os.getenv("EXPLICIT_WAIT", "10"))  # явное ожидание по умолчанию
 
+    # креды для авторизации
+    auth_login: str = os.getenv("AUTH_LOGIN", "")
+    auth_password: str = os.getenv("AUTH_PASSWORD", "")
+
 
 cfg = Config()  # один общий объект конфигурации

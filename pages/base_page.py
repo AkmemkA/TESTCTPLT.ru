@@ -1,5 +1,6 @@
 from typing import Tuple
 
+import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import (
@@ -14,11 +15,13 @@ class BasePage:
         self.driver = driver  # ссылка на WebDriver
         self.base_url = base_url  # базовый URL стенда
 
+    @allure.step("Открыть страницу: {path}")  # ← шаг в отчёте
     def open(self, path: str = "/"):
         """Открыть страницу по относительному пути."""
         self.driver.get(self.base_url + path)  # переход по URL
-        return self  # вернём self для чейнинга
+        return self  # вернет self для чейнинга
 
+    @allure.step("Найти элемент: {locator}")
     def find(self, locator: Locator, timeout: float = 10):
         """Дождаться появления элемента в DOM и вернуть его."""
         by, value = locator
@@ -26,14 +29,15 @@ class BasePage:
             EC.presence_of_element_located((by, value))
         )
 
+    @allure.step("Кликнуть по элементу: {locator}")
     def click(self, locator: Locator, timeout: float = 10):
         """Клик по элементу, дождавшись кликабельности."""
         by, value = locator
         el = WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((by, value)))
         el.click()
 
+    @allure.step("Ввести текст '{text}' в поле: {locator}")
     def type(self, locator: Locator, text: str, timeout: float = 10):
-        """Ввести текст в поле."""
         by, value = locator
         el = WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable((by, value)))
         el.clear()
