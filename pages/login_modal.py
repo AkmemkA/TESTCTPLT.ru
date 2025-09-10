@@ -20,9 +20,7 @@ class LoginModal(BasePage):
     BTN_SUBMIT: Locator = (By.ID, "pop_up_button")  # кнопка «Войти»
     CLOSE_ICON: Locator = (By.CSS_SELECTOR, ".popups__close")  # крестик закрытия
     PASSWORD_TOGGLE: Locator = (By.CSS_SELECTOR, "img[alt='eye']")  # иконка показа/скрытия пароля
-
-    # --- ЛК после входа (проверка успешной авторизации) ---
-    # Локатор логина пользователя (универсальный):
+    # --- Раздел отправлений после входа (проверка успешной авторизации)
     LK_SHIPMENTS_HEADER: Locator = (
         By.XPATH,
         "//*[@id='departures_tab']/div",
@@ -48,7 +46,7 @@ class LoginModal(BasePage):
         self.click(self.BTN_SUBMIT)
         return self
 
-    @allure.step("Проверить, что пользователь попал в ЛК, видно название профиля")
+    @allure.step("Проверить, что пользователь попал в ЛК, раздел 'Отправления'")
     def should_be_shipments_open(self, timeout: float = 10):
         self.find(self.LK_SHIPMENTS_HEADER, timeout)  # ждём название аккаунта
         return self
